@@ -81,7 +81,7 @@ with data_and_selection:
 with graphs: 
     cand_col, jobs_col = st.columns(2)
 
-    cand_col.subheader('Найпопулярніші навички серед розробників')
+    cand_col.subheader('Найпопулярніші навички серед кантидатів')
 
     if keyword == '':
         num_cand = cand.shape[0]
@@ -115,5 +115,6 @@ with graphs:
    # jobs_col.bar_chart(job_skills) 
 
     fig_jobs = px.bar(job_skills, x="count", y="skill", orientation='h')
+   
 
     jobs_col.write(fig_jobs)
