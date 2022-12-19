@@ -67,7 +67,11 @@ with data_and_selection:
             a = list[i]
             a = a.split('\n')
             all_skils.append(a)
-        flat_list = [item for sublist in all_skils for item in sublist]
+        flat_listt = [item for sublist in all_skils for item in sublist]
+        flat_list =[]
+        for skill in flat_listt: 
+            skill = skill.strip()
+            flat_list.append(skill)
         myDict = Counter(flat_list)
 
         skillshare = pd.DataFrame.from_dict(myDict, orient='index')
@@ -75,6 +79,7 @@ with data_and_selection:
         skillshare.rename(columns = {0:'count'}, inplace=True)
         skillshare = skillshare[['skill', 'count']]
         skillshare = skillshare.reset_index(drop=True)
+        #skillshare['skill'] = skillshare['skill'].str.strip()
         skillshare = skillshare.sort_values(by='count', ascending=False)
         
         return skillshare
@@ -82,7 +87,7 @@ with data_and_selection:
 with graphs: 
     cand_col, jobs_col = st.columns(2)
 
-    cand_col.subheader('Найпопулярніші навички серед кантидатів')
+    cand_col.subheader('Найпопулярніші навички серед кандидатів')
 
     if keyword == '':
         num_cand = cand.shape[0]
