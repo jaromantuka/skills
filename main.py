@@ -6,13 +6,15 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go 
 
+def wide(): 
+    st.set_page_config(layout="wide")
+wide()
+
 header = st.container()
 data_and_selection = st.container()
 graphs = st.container()
 
 #change with css i have no idea how 
-
-
 #caching, not to do it many times 
 @st.cache
 def get_data(filename):
@@ -22,6 +24,7 @@ def get_data(filename):
 
 #header in Ukr.
 with header: 
+
     st.title('Найпопулярніші навички в ІТ')
     st.markdown('Ми проаналізували дані з профілів **72 тисяч кандидатів** та **90 тисяч вакансій** на Джині. \
         Обирайте категорію нижче, щоб побачити ключові навички, які зназначають кандидати та про які пишуть у вакансіях.  \
