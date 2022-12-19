@@ -23,14 +23,13 @@ def get_data(filename):
 #header in Ukr.
 with header: 
     st.title('Найпопулярніші навички в ІТ')
-    st.markdown('Ми проаналізували дані з профілів **72 тисяч кандидатів** та **90 тисяч вакансій** \n \
-на Джині. Вибірка кандидатів — були активними за останні 30 днів. \n Вибірка вакансій: \
-створені цього року та хоча б раз опубліковані. \n Обирайте категорію нижче, щоб побачити ключові навички серед кандидатів та у вакансіях.\
-\n У вакансіях навички сильно менш різноманітні, ніж пишуть кандидати.' )
+    st.markdown('Ми проаналізували дані з профілів **72 тисяч кандидатів** та **90 тисяч вакансій** на Джині. \
+        Обирайте категорію нижче, щоб побачити ключові навички, які зназначають кандидати та про які пишуть у вакансіях.  \
+         \n -  Вибірка кандидатів — були активними за останні 30 днів.  \
+        \n - Вибірка вакансій: створені цього року та хоча б раз опубліковані. Поле навичок не порожнє. ' )
 
 with data_and_selection: 
     st.subheader('Оберіть категорію')
-    st.markdown('Порожній вибір показує всі категорії')
 #loading cand data 
     cand = get_data('skills_candidates.csv')
     cand = cand.dropna()
@@ -41,14 +40,15 @@ with data_and_selection:
     jobs = jobs.dropna()
    # jobs['all_skils'] = jobs['primary_keyword'] + ',' + jobs['extra_keywords']
     jobs['all_skils'] = jobs['extra_keywords']
-    jobs['all_skils'] = jobs['all_skils'].str.split(",").map(set).str.join("\n")
+    jobs['all_skils'] = jobs['all_skils'].str.split(",").map(set).str.join("/")
+    jobs['all_skils'] = jobs['all_skils'].str.split("/").map(set).str.join("\n")
     #jobs['all_skils'] = jobs['all_skils'].str.strip('\n')
 
  #the dropdown. value = '' (defealt)
     options = cand['primary_keyword'].unique()
     options = np.insert(options,0,'')
     options = np.sort(options)
-    keyword = st.selectbox('Choose your hero', options = options, index =0) 
+    keyword = st.selectbox('Порожній вибір показує всі категорії', options = options, index =0) 
 
 
 # the function takes data and category and returns a list of skills in category in order of popularity 
@@ -79,11 +79,14 @@ with graphs:
     cand_col, jobs_col = st.columns(2)
 
     cand_col.subheader('Найпопулярніші навички серед розробників')
-    cand_col.markdown('Проаналізовано кандидатів:')
+
     if keyword == '':
-        cand_col.write(cand.shape[0])
+        num_cand = cand.shape[0]
     else:
-        cand_col.write((cand[cand['primary_keyword'] == keyword]).shape[0])
+        num_cand = (cand[cand['primary_keyword'] == keyword]).shape[0]
+
+    cand_col.markdown('Проаналізовано кандидатів: {}'.format(num_cand))
+    
     
     cand_skills = one_list(cand, keyword).head(10)
     
@@ -95,12 +98,14 @@ with graphs:
 #друга колока
 
     jobs_col.subheader('Найпопулярніші навички у вакансіях')
-    jobs_col.markdown('Проаналізовано вакансій:')
     if keyword == '':
-        jobs_col.write(jobs.shape[0])
+        num_jobs = jobs.shape[0]
     else:
-        jobs_col.write((jobs[jobs['primary_keyword'] == keyword]).shape[0])
+        num_jobs = jobs[jobs['primary_keyword'] == keyword].shape[0]
 
+
+    jobs_col.markdown('Проаналізовано вакансій: {}'.format(num_jobs))
+    
     job_skills = one_list(jobs, keyword).head(10)
     
     #jobs_col.write(job_skills)
