@@ -79,11 +79,10 @@ with data_and_selection:
         skillshare.rename(columns = {0:'count'}, inplace=True)
         skillshare = skillshare[['skill', 'count']]
         skillshare = skillshare.reset_index(drop=True)
-        #skillshare['skill'] = skillshare['skill'].str.strip()
         skillshare = skillshare.sort_values(by='count', ascending=False)
         
         return skillshare
-#колонки з графіками 
+#two columns with graphs 
 with graphs: 
     cand_col, jobs_col = st.columns(2)
 
@@ -96,15 +95,13 @@ with graphs:
 
     cand_col.markdown('Проаналізовано кандидатів: {}'.format(num_cand))
     
-    
     cand_skills = one_list(cand, keyword).head(10)
-    
-    #cand_col.write(cand_skills)
-    #cand_col.bar_chart(cand_skills)
+
 
     fig_cand = px.bar(cand_skills, x="count", y="skill", orientation='h')
     cand_col.write(fig_cand)
-#друга колока
+
+#the second column
 
     jobs_col.subheader('Найпопулярніші навички у вакансіях')
     if keyword == '':
@@ -116,9 +113,6 @@ with graphs:
     jobs_col.markdown('Проаналізовано вакансій: {}'.format(num_jobs))
     
     job_skills = one_list(jobs, keyword).head(10)
-    
-    #jobs_col.write(job_skills)
-   # jobs_col.bar_chart(job_skills) 
 
     fig_jobs = px.bar(job_skills, x="count", y="skill", orientation='h')
    
