@@ -37,7 +37,7 @@ with data_and_selection:
     jobs.rename(columns={'extra_keywords': 'skills_cache'}, inplace=True)
   
  #the dropdown. value = '' (defealt)
-    values_to_remove = ['Data and Analytic', 'Delivery Manager', 'Operations (Ops)', 'Managers', '(Other)']
+    values_to_remove = ['Data and Analytics', 'Delivery Manager','Kotlin', 'Operations (Ops)', 'Management', 'Elixir','(Other)']
     options = list(filter(lambda option: option not in values_to_remove, cand['label'].unique()))
 
     options = np.insert(options,0,'')
