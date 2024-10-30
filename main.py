@@ -37,14 +37,16 @@ with data_and_selection:
     jobs.rename(columns={'extra_keywords': 'skills_cache'}, inplace=True)
   
  #the dropdown. value = '' (defealt)
-    options = cand['label'].unique()
+    values_to_remove = ['Data and Analytic', 'Delivery Manager', 'Operations (Ops)', 'Managers', '(Other)']
+    options = list(filter(lambda option: option not in values_to_remove, cand['label'].unique()))
+
     options = np.insert(options,0,'')
     options = np.sort(options)
     keyword = st.selectbox('Порожній вибір показує всі категорії', options = options, index =0) 
 
 
 # the function takes data and category and returns a list of skills in category in order of popularity 
-    exceptions = {"AI/ML", "CI/CD"}
+    exceptions = {"AI/ML","ML/AI", "CI/CD"}
     def one_list(data, keyword=''):
         a = data.copy()
         if keyword: 
