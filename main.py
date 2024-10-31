@@ -126,6 +126,6 @@ with graphs:
         height=600,
         category_orders={"skill": job_skills["skill"].tolist()}) 
 
-    fig_jobs.update_yaxes(tickfont=dict(size=14))  # Customize size and color
+    fig_jobs.update_yaxes(tickfont=dict(size=14))  # Customize size and color, can also do color 
 
     jobs_col.write(fig_jobs)
