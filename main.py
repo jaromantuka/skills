@@ -18,7 +18,6 @@ graphs = st.container()
 @st.cache_data
 def get_data(filename):
     data = pd.read_csv(filename).fillna('')
-
     return data 
 
 #header in Ukr.
