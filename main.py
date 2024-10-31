@@ -46,7 +46,7 @@ with data_and_selection:
 
 
 # the function takes data and category and returns a list of skills in category in order of popularity 
-    exceptions = {"AI/ML","ML/AI", "CI/CD", 'A/B testing', 'A/B Testing', 'A/B test'}
+    exceptions = {"AI/ML","ML/AI", "CI/CD", "A/B testing", "A/B Testing", "A/B test"}
     def one_list(data, keyword=''):
         a = data.copy()
         if keyword: 
